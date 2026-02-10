@@ -46,6 +46,7 @@ const SudokuGame = () => {
 
     if (flatBoard.every((cell, i) => cell === flatSolution[i])) {
       setStatus("Correct!");
+      // Simple animation trigger - can be enhanced later
     } else {
       setStatus("Incorrect, Try Again!");
     }
@@ -93,8 +94,8 @@ const SudokuGame = () => {
 
   return (
     <div className={`min-h-screen flex flex-col items-center py-10 transition-colors duration-300 ${theme.bg} ${theme.text} relative overflow-hidden`}
-      onClick={resetIdleTimer}
-      onKeyDown={resetIdleTimer}
+      onClick={resetIdleTimer} // Global reset on click
+      onKeyDown={resetIdleTimer} // Global reset on key press
       tabIndex={0}
     >
 
@@ -120,7 +121,7 @@ const SudokuGame = () => {
         </div>
       </div>
 
-
+      {/* Success Animation - Approved Image */}
       <div className={`fixed inset-0 flex items-center justify-center pointer-events-none z-50 transition-all duration-500
         ${status === 'Correct!' ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}
       `}>

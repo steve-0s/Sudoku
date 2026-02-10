@@ -1,2 +1,2 @@
 # Sudoku
-A web-based Sudoku game built with modern web technologies, featuring an interactive grid, puzzle generation, and solution validation.
+A web-based Sudoku game built with react and tailwindcss.

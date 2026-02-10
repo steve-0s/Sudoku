@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+/* Reset input styles for consistent cell sizing */
+input[type="text"] {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+/* Ensure all inputs use border-box sizing */
+* {
+  box-sizing: border-box;
+}

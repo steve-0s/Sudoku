@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Grid from './components/grid'
 import Controls from './components/controls'
 import ThemeSelector from './components/ThemeSelector'
+import DifficultySelector from './components/DifficultySelector'
 import { ThemeProvider, useTheme } from './context/ThemeContext'
-import { getSudoku } from './utils/sudokuGenerator'
+import { fetchSudokuPuzzle } from './services/sudokuApi'
 
 const SudokuGame = () => {
   const [board, setBoard] = useState(null);
@@ -11,7 +12,10 @@ const SudokuGame = () => {
   const [solution, setSolution] = useState(null);
   const [status, setStatus] = useState('');
   const [selected, setSelected] = useState(null);
-  const [greenCount, setGreenCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [difficulty, setDifficulty] = useState('Medium');
+  const [currentDifficulty, setCurrentDifficulty] = useState('Medium');
 
   const { theme } = useTheme();
 
@@ -62,14 +66,25 @@ const SudokuGame = () => {
     }
   }
 
-  const handleNewPuzzle = () => {
+  const handleNewPuzzle = async () => {
     resetIdleTimer();
-    const { solution: newSolution, puzzle: newPuzzle, initialBoard } = getSudoku();
-    setSolution(newSolution);
-    setPuzzle(newPuzzle);
-    setBoard(initialBoard);
-    setStatus('');
-    setSelected(null);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const { solution: newSolution, puzzle: newPuzzle, initialBoard, difficulty: puzzleDifficulty } = await fetchSudokuPuzzle(difficulty);
+      setSolution(newSolution);
+      setPuzzle(newPuzzle);
+      setBoard(initialBoard);
+      setCurrentDifficulty(puzzleDifficulty || difficulty);
+      setStatus('');
+      setSelected(null);
+    } catch (err) {
+      setError('Failed to load puzzle. Please try again.');
+      console.error('Error loading puzzle:', err);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   const handleInput = (rIdx, cIdx, value) => {
@@ -90,6 +105,15 @@ const SudokuGame = () => {
     }
   }
 
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center text-2xl">Loading puzzle...</div>;
+  if (error) return (
+    <div className="min-h-screen flex flex-col items-center justify-center text-2xl gap-4">
+      <p className="text-red-500">{error}</p>
+      <button onClick={handleNewPuzzle} className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+        Try Again
+      </button>
+    </div>
+  );
   if (!board) return <div className="min-h-screen flex items-center justify-center text-2xl">Loading...</div>;
 
   return (
@@ -139,6 +163,8 @@ const SudokuGame = () => {
         </header>
 
         <ThemeSelector />
+
+        <DifficultySelector difficulty={difficulty} setDifficulty={setDifficulty} />
 
         <main className={`p-6 rounded-2xl shadow-2xl transition-all duration-300 ${theme.card} border ${theme.boardBorder}`}>
           <Grid

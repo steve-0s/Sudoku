@@ -20,43 +20,9 @@ export const themes = {
         button: 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-200',
         status: 'text-indigo-700'
     },
-    dark: {
-        name: 'Dark',
-        bg: 'bg-gray-900',
-        text: 'text-gray-100',
-        card: 'bg-gray-800',
-        boardBorder: 'border-gray-400',
-        cell: {
-            base: 'text-indigo-300 hover:bg-gray-700 focus:bg-gray-700',
-            prefilled: 'bg-gray-700 text-white font-bold',
-            selected: 'bg-indigo-900 text-indigo-100 font-bold shadow-inner',
-            highlighted: 'bg-gray-700 text-indigo-300',
-            border: 'border-gray-800',
-            borderBold: 'border-gray-200'
-        },
-        button: 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-900/50',
-        status: 'text-indigo-400'
-    },
-    midnight: {
-        name: 'Midnight',
-        bg: 'bg-slate-950',
-        text: 'text-cyan-100',
-        card: 'bg-slate-900',
-        boardBorder: 'border-cyan-500',
-        cell: {
-            base: 'text-cyan-400 hover:bg-slate-800 focus:bg-slate-800',
-            prefilled: 'bg-slate-800 text-cyan-200 font-bold',
-            selected: 'bg-cyan-900/50 text-cyan-50 font-bold shadow-[0_0_15px_rgba(34,211,238,0.2)]',
-            highlighted: 'bg-slate-800/80 text-cyan-400',
-            border: 'border-slate-800',
-            borderBold: 'border-cyan-200'
-        },
-        button: 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-lg shadow-cyan-900/50',
-        status: 'text-cyan-400'
-    },
     nature: {
         name: 'Nature',
-        bg: 'bg-stone-100',
+        bg: 'bg-gradient-to-tl from-amber-900 via-green-800 to-emerald-700',
         text: 'text-stone-800',
         card: 'bg-[#fdfaf6]',
         boardBorder: 'border-stone-700',
@@ -69,7 +35,7 @@ export const themes = {
             borderBold: 'border-stone-700'
         },
         button: 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-200',
-        status: 'text-emerald-700'
+        status: 'text-amber-800'
     },
     glass: {
         name: 'Glass',
